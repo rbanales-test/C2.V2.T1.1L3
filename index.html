@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Topic 1.1: Visual - Sorting the Partials</title>
+  <style>
+    :root {
+      --coursera-blue: #0056D2;
+      --coursera-blue-focus: #00419E;
+      --text-dark: #1F1F1F;
+      --bg-light: #F8F9FA;
+      --card-bg: #FFFFFF;
+      --border-color: #D1D5DB;
+      --focus-outline: #FFB800;
+      --highlight-bg: #EBF3FF;
+    }
+
+    body {
+      margin: 0;
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      display: flex;
+      justify-content: center;
+    }
+
+    .interactive-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      max-width: 720px;
+      width: 100%;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 1.25rem;
+      color: var(--text-dark);
+    }
+
+    p.lead-text {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    /* Tree Structure Styling */
+    .tree-container {
+      background-color: #F9FAFB;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+    }
+
+    .tree-root {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .tree-branch {
+      margin-left: 20px;
+      border-left: 2px solid var(--border-color);
+      padding-left: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .tree-node-btn {
+      background: #FFFFFF;
+      border: 2px solid var(--border-color);
+      border-radius: 6px;
+      padding: 8px 12px;
+      text-align: left;
+      font-size: 0.9rem;
+      cursor: pointer;
+      color: var(--text-dark);
+      transition: all 0.2s ease;
+      display: inline-block;
+      max-width: 90%;
+    }
+
+    .tree-node-btn:focus {
+      outline: 3px solid var(--focus-outline);
+      outline-offset: 2px;
+    }
+
+    .tree-node-btn[aria-pressed="true"] {
+      background-color: var(--highlight-bg);
+      border-color: var(--coursera-blue);
+      font-weight: 600;
+    }
+
+    .node-tag {
+      font-weight: 700;
+      color: var(--coursera-blue);
+    }
+
+    .node-detail {
+      color: #4B5563;
+      font-size: 0.85rem;
+    }
+
+    /* Sub-branch */
+    .tree-sub-branch {
+      margin-left: 20px;
+      border-left: 2px solid var(--border-color);
+      padding-left: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    /* Audio Trigger */
+    .audio-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .btn-audio {
+      padding: 10px 20px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #FFFFFF;
+      background-color: var(--coursera-blue);
+      border: 2px solid var(--coursera-blue-focus);
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .btn-audio:focus {
+      outline: 3px solid var(--focus-outline);
+      outline-offset: 2px;
+    }
+
+    .audio-desc {
+      font-size: 0.85rem;
+      color: #4B5563;
+    }
+
+    /* Info Status Card */
+    .info-card {
+      background-color: var(--highlight-bg);
+      border-left: 4px solid var(--coursera-blue);
+      padding: 16px;
+      border-radius: 0 6px 6px 0;
+      line-height: 1.5;
+    }
+
+    .info-card h3 {
+      margin-top: 0;
+      margin-bottom: 6px;
+      font-size: 1rem;
+      color: var(--text-dark);
+    }
+
+    .info-card p {
+      margin: 0;
+      font-size: 0.92rem;
+    }
+
+    .footer-summary {
+      margin-top: 16px;
+      font-size: 0.85rem;
+      color: #4B5563;
+      border-top: 1px solid var(--border-color);
+      padding-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <main class="interactive-card" role="region" aria-labelledby="sorting-title">
+    <h2 id="sorting-title">Visual: Sorting the Partials</h2>
+    <p class="lead-text">
+      Select any node in the tree to explore how frequencies in a complex sound are classified, and audition how their balance defines timbre.
+    </p>
+
+    <!-- Tree Structure -->
+    <div class="tree-container" role="tree" aria-label="Taxonomy of Partials">
+      <div class="tree-root">All Partials (any of the separate frequencies in a sound)</div>
+
+      <div class="tree-branch" role="group">
+        <!-- Fundamental -->
+        <button id="node-fund" class="tree-node-btn" aria-pressed="true" aria-controls="status-panel">
+          <span class="node-tag">├── Fundamental:</span>
+          <span class="node-detail">The ground floor: the pitch you hear (the lowest harmonic).</span>
+        </button>
+
+        <!-- Overtones -->
+        <div>
+          <button id="node-overtones" class="tree-node-btn" aria-pressed="false" aria-controls="status-panel">
+            <span class="node-tag">└── Overtones:</span>
+            <span class="node-detail">Every partial above the fundamental.</span>
+          </button>
+
+          <div class="tree-sub-branch" role="group">
+            <!-- Harmonic Overtones -->
+            <button id="node-harmonic" class="tree-node-btn" aria-pressed="false" aria-controls="status-panel">
+              <span class="node-tag">├── Harmonic overtones:</span>
+              <span class="node-detail">Fit the staircase: whole-number multiples (2x, 3x, 4x ...).</span>
+            </button>
+
+            <!-- Inharmonic Overtones -->
+            <button id="node-inharmonic" class="tree-node-btn" aria-pressed="false" aria-controls="status-panel">
+              <span class="node-tag">└── Inharmonic overtones:</span>
+              <span class="node-detail">Do not fit the staircase: non-integer ratios (bells, gongs).</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Audition Section -->
+    <div class="audio-row">
+      <button id="btn-listen" class="btn-audio" aria-label="Audition acoustic spectrum for the selected partial category">
+        ▶ Audition Spectrum
+      </button>
+      <span class="audio-desc" id="listen-hint">Listening to: Fundamental (440 Hz pure sine tone).</span>
+    </div>
+
+    <!-- Info Status Live Region -->
+    <div id="status-panel" class="info-card" role="status" aria-live="polite">
+      <h3 id="info-title">Selected: Fundamental</h3>
+      <p id="info-desc">
+        The lowest harmonic, and it is usually the pitch you hear. Analogy: a staircase ground floor. Most instruments build their sound on this staircase.
+      </p>
+    </div>
+
+    <div class="footer-summary">
+      <strong>In short:</strong> All harmonics are partials, and harmonics above the fundamental are overtones. But not every partial or overtone is a harmonic.
+    </div>
+  </main>
+
+  <script>
+    // Strict definitions from Topic 1.1 text
+    const partialData = {
+      fund: {
+        title: "Fundamental",
+        desc: "The lowest harmonic, and it is usually the pitch you hear. Analogy: a staircase ground floor. Most instruments build their sound on this staircase.",
+        hint: "Listening to: Fundamental (pure 440 Hz ground tone)."
+      },
+      overtones: {
+        title: "Overtones",
+        desc: "The partials above the fundamental. Overtones can be harmonic or inharmonic. (The 2nd harmonic is the 1st overtone, the 3rd harmonic is the 2nd overtone, and so on).",
+        hint: "Listening to: Overtones group (higher frequency components)."
+      },
+      harmonic: {
+        title: "Harmonic overtones",
+        desc: "Harmonics are at whole-number multiples of the fundamental: 2 times, 3 times, 4 times and so on (fit the staircase: 2x, 3x, 4x ...). They sound musical and stable.",
+        hint: "Listening to: Harmonic overtones (440 Hz + 880 Hz + 1320 Hz + 1760 Hz integer multiples)."
+      },
+      inharmonic: {
+        title: "Inharmonic overtones",
+        desc: "Frequencies that do not fit the whole-number steps of the staircase. Strike a church bell or a gong and the frequencies do not fit into whole-number steps. That is why bells sound so different from a violin.",
+        hint: "Listening to: Inharmonic overtones (non-integer frequencies: 440 Hz + 616 Hz + 942 Hz + 1355 Hz)."
+      }
+    };
+
+    let selectedNode = 'fund';
+    let audioCtx = null;
+
+    const nodeButtons = {
+      fund: document.getElementById('node-fund'),
+      overtones: document.getElementById('node-overtones'),
+      harmonic: document.getElementById('node-harmonic'),
+      inharmonic: document.getElementById('node-inharmonic')
+    };
+
+    const infoTitle = document.getElementById('info-title');
+    const infoDesc = document.getElementById('info-desc');
+    const btnListen = document.getElementById('btn-listen');
+    const listenHint = document.getElementById('listen-hint');
+
+    function setActiveNode(key) {
+      selectedNode = key;
+      Object.keys(nodeButtons).forEach(k => {
+        nodeButtons[k].setAttribute('aria-pressed', k === key ? 'true' : 'false');
+      });
+      infoTitle.textContent = "Selected: " + partialData[key].title;
+      infoDesc.textContent = partialData[key].desc;
+      listenHint.textContent = partialData[key].hint;
+    }
+
+    Object.keys(nodeButtons).forEach(k => {
+      nodeButtons[k].addEventListener('click', () => setActiveNode(k));
+    });
+
+    btnListen.addEventListener('click', () => {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+
+      const now = audioCtx.currentTime;
+      const baseFreq = 440.0; // A4 reference
+
+      let freqs = [];
+      let gains = [];
+      let duration = 1.2;
+
+      if (selectedNode === 'fund') {
+        freqs = [baseFreq];
+        gains = [0.4];
+      } else if (selectedNode === 'overtones') {
+        freqs = [baseFreq * 2, baseFreq * 3, baseFreq * 4];
+        gains = [0.25, 0.18, 0.12];
+      } else if (selectedNode === 'harmonic') {
+        // Integer staircase: 1x, 2x, 3x, 4x
+        freqs = [baseFreq, baseFreq * 2, baseFreq * 3, baseFreq * 4];
+        gains = [0.35, 0.22, 0.15, 0.1];
+      } else if (selectedNode === 'inharmonic') {
+        // Non-integer steps (bells/gongs): 1x, 1.4x, 2.14x, 3.08x
+        freqs = [baseFreq, baseFreq * 1.4, baseFreq * 2.14, baseFreq * 3.08];
+        gains = [0.35, 0.25, 0.2, 0.15];
+        duration = 1.8; // Bells ring out longer
+      }
+
+      freqs.forEach((f, idx) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(f, now);
+
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.linearRampToValueAtTime(gains[idx], now + 0.04);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start(now);
+        osc.stop(now + duration);
+      });
+    });
+  </script>
+</body>
+</html>
